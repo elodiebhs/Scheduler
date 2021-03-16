@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import DayListItem from "./DayListItem";
 
 export default function DayList(props) {
   
+  {/* iterate on the array of days since each day in that array contains the necessary information to populate one DayListItem component */}
  const days = props.days.map(day => {
    return <DayListItem 
    key={day.id}
@@ -14,10 +15,7 @@ export default function DayList(props) {
 
   return (
     <ul>
-     {/* iterate on the array of days since each day in that array contains the necessary information to populate one DayListItem component */}
-     
     {days}
-
     </ul>
   );
 }
