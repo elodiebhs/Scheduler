@@ -4,17 +4,7 @@ import "components/InterviewerListItem.scss";
 import classNames from 'classnames';
 
 export default function InterviewerListItem(props){
-  // const interviewer= props.interviewer.map(interview => {
-  //   return <InterviewerListItem
-  //   key={interview.id}
-  //   name={interview.name} 
-  //   avatar={interview.avatar} 
-  //   selected={interview.name === props.interview}
-  //   setInterviewer={props.setInterviewer}
-    
-  //     />
-  //})
-
+  
   const interviewerClass = classNames("interviewers__item",{
     "interviewers__item--selected":props.selected
   })
