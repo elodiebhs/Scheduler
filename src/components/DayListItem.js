@@ -11,12 +11,11 @@ export default function DayListItem(props) {
       return "no spots remaining"
     } else if (number === 1) {
       return "1 spot remaining"
-    } else if (number === 2) {
-      return "2 spots remaining"
+    } else {
+      return number + " spots remaining"
     }
-    
   }
-  
+
   const dayClass = classNames("day-list__item", {
     "day-list__item--selected": props.selected,
     "day-list__item--full": props.spots === 0
