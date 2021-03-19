@@ -4,6 +4,8 @@ import "./styles.scss";
 import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
+import Status from "components/Appointment/Status";
+import Confirm from "components/Appointment/Confirm";
 import useVisualMode from "hooks/useVisualMode";
 import Form from "components/Appointment/Form";
 
@@ -11,20 +13,37 @@ import Form from "components/Appointment/Form";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE ="CREATE";
+const SAVING ="SAVING";
+const DELETE ="DELETE";
+const CONFIRM="CONFIRM"
 
 export default function Appointment(props) {
 
   //When props.interview contains a value, then we want to pass useVisualMode the SHOW mode, if it is empty then we should pass EMPTY.
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
+  //Save the appointment
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     };
+    transition (SAVING);
 
-    props.bookInterview(props.id, interview)
+    props
+      .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
+  }
+  //Cancel/delete an appointment
+  function cancel(){
+    transition(DELETE)
+    props
+    .cancelInterview(props.id)
+    .then(() => transition(EMPTY))
+  }
+
+  function confirm(){
+    transition (CONFIRM)
   }
 
   return (
@@ -36,8 +55,10 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={confirm}
         />
       )}
+      
       {/* When the mode === CREATE we want to show the Form component. */}
       {mode === CREATE && 
       (<Form
@@ -45,8 +66,10 @@ export default function Appointment(props) {
        onCancel ={back}
        onSave={save}
       />
-      
       )}
+      {mode === SAVING && <Status message={'Saving'} /> }
+      {mode === DELETE && <Status message={'Deleting'} /> }
+      {mode === CONFIRM && <Confirm onCancel={back} onConfirm={cancel} message={'Confirming Delete'} /> }
     </article>
   );
 }

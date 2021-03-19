@@ -7,11 +7,9 @@ import { getInterview, getAppointmentsForDay, getInterviewersForDay } from 'help
 
 
 export default function Application(props) {
-  // const [day, setDay] = useState("Monday")
+  
 
-  // const [days, setDays] = useState([]);
-
-
+ //Export applications
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -20,17 +18,19 @@ export default function Application(props) {
 
   });
 
-  //const dailyAppointments = getAppointmentsForDay(state,state.day);
 
+//Get apppointments and interviews per day
   const appointments = getAppointmentsForDay(state, state.day);
   //console.log(appointments)
 
   const interviewers = getInterviewersForDay(state, state.day);
   //console.log("interviewers", interviewers)
 
+  //SHOULD THIS BE DOWN?
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
+    //Book Appointment
     function bookInterview(id, interview) {
       console.log(id, interview);
   
@@ -53,6 +53,27 @@ export default function Application(props) {
         })
     }
 
+
+    //Delete the appointment
+    //will use the appointment id to find the right appointment slot and set it's interview data to null.
+    function cancelInterview(id){
+      const appointment = {
+        ...state.appointments[id],
+        interview: null,
+      };
+
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+     
+  
+      return axios.delete(`/api/appointments/${id}`)
+        .then(() => {
+        setState({ ...state, appointments});
+       })
+    }
+
     return (
       <Appointment
         key={appointment.id}
@@ -61,6 +82,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
