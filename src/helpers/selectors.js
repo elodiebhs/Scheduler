@@ -37,3 +37,16 @@ export const getInterview = (state, interview) => {
     return newObj
   }
 
+  export const getInterviewersForDay = (state, day) => {
+
+    const appointmentDay = state.days.find(currentDay => { return currentDay.name === day} )
+    //console.log(appointmentDay)
+    // console.log(appointmentDay.appointments)
+    // console.log(state.appointments)
+  
+    if (!appointmentDay){
+    return []
+    }
+    
+    return appointmentDay.interviewers.map(appointmentID => state.interviewers [appointmentID])
+  }
