@@ -17,6 +17,15 @@ export default function Appointment(props) {
   //When props.interview contains a value, then we want to pass useVisualMode the SHOW mode, if it is empty then we should pass EMPTY.
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    
+    props.bookInterview(props.id, interview);
+  }
+
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -31,8 +40,9 @@ export default function Appointment(props) {
       {/* When the mode === CREATE we want to show the Form component. */}
       {mode === CREATE && 
       (<Form
-       interviewers={[]}
+       interviewers={props.interviewers}
        onCancel ={back}
+       onSave={save}
       />)
       
       }
