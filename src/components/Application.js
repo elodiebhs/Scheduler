@@ -3,7 +3,7 @@ import axios from 'axios';
 import "components/Application.scss";
 import DayList from 'components/DayList';
 import Appointment from "components/Appointment/Index";
-import { getInterview, getAppointmentsForDay, getInterviewersForDay} from 'helpers/selectors';
+import { getInterview, getAppointmentsForDay, getInterviewersForDay } from 'helpers/selectors';
 
 
 export default function Application(props) {
@@ -16,7 +16,7 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers:{}
+    interviewers: {}
 
   });
 
@@ -30,41 +30,60 @@ export default function Application(props) {
 
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-    
-  function bookInterview(id, interview) {
-    //console.log(id, interview);
-    
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
 
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-      
-    };
-    setState({
-      ...state,
-      appointments
-    });
+    function bookInterview(id, interview) {
+      //console.log(id, interview);
 
 
-  }
+      const appointment = {
+        ...state.appointments[id],
+        interview: { ...interview }
+      };
 
-  return (
-    <Appointment
-      key={appointment.id}
-      id={appointment.id}
-      time={appointment.time}
-      interview={interview}
-      interviewers={interviewers}
-      bookInterview={bookInterview}
-    />
-  );
-});
 
-const setDay = day => setState({ ...state, day });
+
+      const appointments = {
+        ...state.appointments,
+        [id]: apappointment
+
+      };
+
+
+      axios.put('api/appoitments/:id', () => {
+        //DATABASE DEVELOPMENT INSERT 
+
+        
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      })
+
+        
+
+
+      setState({
+        ...state,
+        appointments
+      });
+
+    }
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewers={interviewers}
+        bookInterview={bookInterview}
+      />
+    );
+  });
+
+  const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
     Promise.all([
@@ -84,7 +103,7 @@ const setDay = day => setState({ ...state, day });
     })
   }, [])
 
-  
+
   return (
     <main className="layout">
       <section className="sidebar">
