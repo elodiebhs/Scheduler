@@ -63,6 +63,22 @@ export default function useApplicationData() {
       })
   }
 
+  //Update remaining spots
+  // WHERE : days.spots
+  //WHEN : change when we create or delete an appointment
+  //HOW TO CALCULATE : 5 spots per days - what is booked
+
+const getBookedCount = function(days, appointment){
+  let count = 0 ;
+
+  for (const id of days.appointments){
+    const appointment = appointments [id];
+    if(appointment.interview){
+      count ++;
+    }
+  }
+  return count;
+}
 
 
   useEffect(() => {
