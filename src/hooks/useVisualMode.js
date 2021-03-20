@@ -22,9 +22,9 @@ export default function useVisualMode(initial) {
       //we need to nake a new array, with everyting in the history, get everyting in the array, except the last one, and make a new mode
       //old history = [a,b,c], new mode = d
       //new history = [a,b,d]
-      setHistory([...history.slice(0, -1), newMode])
+      setHistory(prev => [...prev.slice(0, -1), newMode])
     } else {
-      setHistory([...history, newMode])
+      setHistory(prev =>[...prev, newMode])
     }
   }
 

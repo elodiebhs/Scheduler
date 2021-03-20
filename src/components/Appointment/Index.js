@@ -8,6 +8,7 @@ import Status from "components/Appointment/Status";
 import Confirm from "components/Appointment/Confirm";
 import useVisualMode from "hooks/useVisualMode";
 import Form from "components/Appointment/Form";
+import Error from "components/Appointment/Error";
 
 
 const EMPTY = "EMPTY";
@@ -17,6 +18,8 @@ const SAVING ="SAVING";
 const DELETE ="DELETE";
 const CONFIRM="CONFIRM"
 const EDIT="EDIT";
+const ERROR_SAVE="ERROR_SAVE";
+const ERROR_DELETE="ERROR_DELETE"
 
 export default function Appointment(props) {
 
@@ -34,25 +37,28 @@ export default function Appointment(props) {
     props
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true))
   }
   //Cancel/delete an appointment
   function cancel(){
-    transition(DELETE)
+    transition(DELETE, true)
     props
     .cancelInterview(props.id)
     .then(() => transition(EMPTY))
+    .catch(() => transition(ERROR_DELETE, true))
   }
 
   function confirm(){
     transition (CONFIRM)
   }
 
+  //Edit appointment
   function edit(){
     transition(EDIT)
   }
 
 
-  //Edit an appointment
+ 
 
   return (
     <article className="appointment">
@@ -89,6 +95,8 @@ export default function Appointment(props) {
        onSave={save}
       />
       )}
+      {mode === ERROR_SAVE && <Error message={'Cound not save appointment'} onClose={back}/>}
+      {mode === ERROR_DELETE && <Error message={'Could not cancel appointment'} onClose={back}/>}
     </article>
   );
 }
