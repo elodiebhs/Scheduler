@@ -20,9 +20,54 @@ export default function useApplicationData() {
 
   const setDay = day => setState({ ...state, day });
 
+  //Update remaining spots
+  // WHERE : days.spots
+  //WHEN : change when we create or delete an appointment
+  //HOW TO CALCULATE : 5 spots per days - what is booked
+
+const spotsLeft = function(daysObj, appointments) {
+  let count = 0 ;
+  
+  for (const id of daysObj.appointments) {
+    //console.log(daysObj)
+    //console.log(daysObj.appointments)
+    const appointment = appointments [id];
+    //console.log(appointment)
+    //if interview = null
+    if(!appointment.interview){
+      //count = count +1
+      count ++;
+    }
+  }
+  //console.log(count);
+  return count;
+  
+}
+
+const updateSpots = function (dayName, days, appointments) {
+ // we loop arounds days, .find returns the value of the first element in the provided array, where element.name==dayName
+ //if true day will be the first element in the array
+  const day = days.find (element => element.name === dayName);
+  //unbooked give us an number of spots not books
+  const unbooked = spotsLeft(day,appointments)
+  //console.log (unbooked)
+  
+  const newArrayState = days.map(element => {
+    if (element.name === dayName){
+      console.log(element.name)
+      return {...element, spots : unbooked}
+    }
+    return element;
+  })
+  console.log(newArrayState)
+  return newArrayState;
+}
+
+
+
   //Book Appointment
   function bookInterview(id, interview) {
-    console.log(id, interview);
+    //console.log(id, interview);
 
     const appointment = {
       ...state.appointments[id],
@@ -34,11 +79,15 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
+    const spots = updateSpots(state.day, state.days, appointments);
+    console.log(spots)
+
     return axios.put(`/api/appointments/${id}`, appointment)
       .then(() => {
         setState({
           ...state,
-          appointments
+          appointments,
+          days: spots
         });
       })
   }
@@ -55,41 +104,25 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-
+  
+    const spots = updateSpots(state.day, state.days, appointments);
 
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
-        setState({ ...state, appointments });
+        setState({ ...state, appointments, days: spots });
       })
   }
 
-  //Update remaining spots
-  // WHERE : days.spots
-  //WHEN : change when we create or delete an appointment
-  //HOW TO CALCULATE : 5 spots per days - what is booked
-
-const getBookedCount = function(days, appointment){
-  let count = 0 ;
-
-  for (const id of days.appointments){
-    const appointment = appointments [id];
-    if(appointment.interview){
-      count ++;
-    }
-  }
-  return count;
-}
-
-
+  
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then((all) => {
-      console.log(all[0]); // first
-      console.log(all[1]); // second
-      console.log(all[2]); // third
+      //console.log(all[0]); // first
+      //console.log(all[1]); // second
+      //console.log(all[2]); // third
 
       const [first, second, third] = all;
 

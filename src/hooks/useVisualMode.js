@@ -8,8 +8,8 @@ export default function useVisualMode(initial) {
   
 
   const [history, setHistory] = useState([initial]);
-  console.log("history",history)
-  console.log("useState", useState)
+  //console.log("history",history)
+  //console.log("useState", useState)
 
   //const historyArray = useState(initial)
   //const history = historyArray[0]
