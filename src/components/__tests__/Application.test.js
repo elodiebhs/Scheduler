@@ -3,6 +3,7 @@ import React from "react";
 import { render, cleanup, waitForElement, fireEvent, prettyDOM, getAllByTestId, getByText, getByAltText, getByPlaceholderText, queryByText, queryByAltText } from "@testing-library/react";
 
 import Application from "components/Application";
+import axios from "axios";
 
 afterEach(cleanup);
 
@@ -19,6 +20,9 @@ describe("Application", () => {
 
     expect(getByText("Leopold Silvers")).toBeInTheDocument();
   });
+
+
+
 
   // Render the Application.
   // Wait until the text "Archie Cohen" is displayed.
@@ -67,9 +71,11 @@ describe("Application", () => {
   });
 
 
+
+
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
     // 1. Render the Application.
-    const { container} = render(<Application />);
+    const { container } = render(<Application />);
 
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -78,9 +84,9 @@ describe("Application", () => {
     const appointment = getAllByTestId(container, "appointment").find(
       appointment => queryByText(appointment, "Archie Cohen")
     );
-  
+
     fireEvent.click(queryByAltText(appointment, "Delete"));
-  
+
 
     // 4. Check that the confirmation message is shown.
 
@@ -105,10 +111,45 @@ describe("Application", () => {
 
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
 
-    debug();
   });
 
 
+
+
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+
+    // 1. Render the Application.
+    const { container } = render(<Application />);
+
+    // 2. Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    // 3. Click the "Edit" button on the booked appointment.
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+
+    fireEvent.click(queryByAltText(appointment, "Edit"));
+
+
+    // 4. We change the name and save the interview.
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    fireEvent.click(getByText(appointment, "Save"));
+
+  
+
+    // 5. Check that the element with the text "Saving" is displayed.
+
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    // 6. We don't want the spots to change for "Monday", since this is an edit.
+
+  })
 
 
 
