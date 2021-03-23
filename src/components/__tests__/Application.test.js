@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, fireEvent, prettyDOM, getAllByTestId, getByText, getByAltText, getByPlaceholderText,  } from "@testing-library/react";
+import { render, cleanup, waitForElement, fireEvent, prettyDOM, getAllByTestId, getByText, getByAltText, getByPlaceholderText, queryByText  } from "@testing-library/react";
 
 import Application from "components/Application";
 
@@ -31,15 +31,18 @@ describe("Application", () => {
   // Check that the DayListItem with the text "Monday" also has the text "no spots remaining".
 
   it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
-    const { container } = render(<Application />);
+    const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
     //console.log(prettyDOM(container));
+  
+  
 
     //Reference the first element in the appointments array.
     const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[0];
     //console.log(prettyDOM(appointment));
+
 
     fireEvent.click(getByAltText(appointment, "Add"));
 
@@ -49,8 +52,18 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
-    console.log(prettyDOM(appointment));
+    //console.log(prettyDOM(appointment));
 
+    //verify that the the appointment element contains the text "Saving" immediately after the "Save" button is clicked
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    await waitForElement(() => queryByText(appointment, "Lydia Miller-Jones"));
+
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+    
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 
 })
