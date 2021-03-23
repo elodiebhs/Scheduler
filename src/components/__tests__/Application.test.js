@@ -38,16 +38,11 @@ describe("Application", () => {
     const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    //console.log(prettyDOM(container));
-
-
 
     //Reference the first element in the appointments array.
     const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[0];
-    //console.log(prettyDOM(appointment));
-
-
+  
     fireEvent.click(getByAltText(appointment, "Add"));
 
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
@@ -56,7 +51,6 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
-    //console.log(prettyDOM(appointment));
 
     //verify that the the appointment element contains the text "Saving" immediately after the "Save" button is clicked
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
@@ -87,21 +81,16 @@ describe("Application", () => {
 
     fireEvent.click(queryByAltText(appointment, "Delete"));
 
-
     // 4. Check that the confirmation message is shown.
-
     expect(getByText(appointment, "Confirming you want to delete")).toBeInTheDocument();
 
     // 5. Click the "Confirm" button on the confirmation.
-
     fireEvent.click(queryByText(appointment, "Confirm"));
 
     // 6. Check that the element with the text "Deleting" is displayed.
-
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
 
     // 7. Wait until the element with the "Add" button is displayed.
-
     await waitForElement(() => getByAltText(appointment, "Add"));
 
     // 8. Check that the DayListItem with the text "Monday" also has the text "2 spots remaining".
@@ -133,7 +122,6 @@ describe("Application", () => {
 
 
     // 4. We change the name and save the interview.
-
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" }
     });
@@ -141,10 +129,7 @@ describe("Application", () => {
 
     fireEvent.click(getByText(appointment, "Save"));
 
-
-
     // 5. Check that the element with the text "Saving" is displayed.
-
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
     // 6. We don't want the spots to change for "Monday", since this is an edit.
@@ -178,16 +163,13 @@ describe("Application", () => {
     // 5.Click the first interviewer in the list.
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
-
     // 6.Click the "Save" button on that same appointment.
     fireEvent.click(getByText(appointment, "Save"));
 
     // 7. Check that the element with the text "Saving" is displayed.
-
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
     //8.Check that error message is showing
-
     await waitForElement(() => getByAltText(appointment, "Close"));
 
     expect(getByText(appointment, "Cound not save appointment")).toBeInTheDocument();
@@ -214,9 +196,7 @@ describe("Application", () => {
 
     fireEvent.click(queryByAltText(appointment, "Delete"));
 
-
     // 4. Check that the confirmation message is shown.
-
     expect(getByText(appointment, "Confirming you want to delete")).toBeInTheDocument();
 
     // 5. Click the "Confirm" button 
