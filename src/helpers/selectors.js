@@ -12,7 +12,7 @@ export const getAppointmentsForDay = (state, day) => {
   }
   const ids = appointmentDay.appointments
   
-  return ids.map(id => state.appointments [id])
+  return ids.map(id => state.appointments[id])
 }
 
 // The function should return a new object containing the interview data when we pass it an object that contains the interviewer. Otherwise, the function should return null.
@@ -48,5 +48,5 @@ export const getInterview = (state, interview) => {
     return []
     }
     
-    return appointmentDay.interviewers.map(appointmentID => state.interviewers [appointmentID])
+    return appointmentDay.interviewers.map(appointmentID => state.interviewers[appointmentID])
   }

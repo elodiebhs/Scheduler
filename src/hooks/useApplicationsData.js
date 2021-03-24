@@ -31,7 +31,7 @@ const spotsLeft = function(daysObj, appointments) {
   for (const id of daysObj.appointments) {
     //console.log(daysObj)
     //console.log(daysObj.appointments)
-    const appointment = appointments [id];
+    const appointment = appointments[id];
     //console.log(appointment)
     //if interview = null
     if(!appointment.interview){
