@@ -36,3 +36,5 @@ The Scheduler client application created using Create React App. Express is the 
 Both servers run concurrently; requests are proxied from the Webpack development server to the API server.
 
 #### Final Project
+
+!["Screenshot of Main Page"]()
