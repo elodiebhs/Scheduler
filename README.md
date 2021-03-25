@@ -7,6 +7,8 @@ Scheduler is a React application that allows users to book and cancel interviews
 3 .Start the web server using the npm run start. The app will be served at http://localhost:8000/.
 4 .Go to http://localhost:8000/ in your browser.
 5. Data is stored in a PostgreSQL database that can be found here : _____. To setup the api server, follow the instruction in the repository. 
+6. Running Jest Test Framework : npm test
+7. Running Storybook Visual Testbed: npm run storybook
 
 ## Functionality
 
