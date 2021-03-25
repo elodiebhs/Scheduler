@@ -37,4 +37,6 @@ Both servers run concurrently; requests are proxied from the Webpack development
 
 #### Final Project
 
-!["Screenshot of Main Page"] (https://raw.githubusercontent.com/elodiebhs/Scheduler/master/Images/Main_page.png)
+!["Screenshot of Main Page"](https://raw.githubusercontent.com/elodiebhs/Scheduler/master/Images/Main_page.png)
+!["Screenshot of the Form"](https://raw.githubusercontent.com/elodiebhs/Scheduler/master/Images/Form.png)
+!["Screenshot of the New Appointment created](https://raw.githubusercontent.com/elodiebhs/Scheduler/master/Images/new_apointment_created.png)
