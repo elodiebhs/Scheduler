@@ -21,27 +21,17 @@ export default function useApplicationData() {
   const setDay = day => setState({ ...state, day });
 
   //Update remaining spots
-  // WHERE : days.spots
-  //WHEN : change when we create or delete an appointment
-  //HOW TO CALCULATE : 5 spots per days - what is booked
-
+  
   const spotsLeft = function (daysObj, appointments) {
     let count = 0;
 
     for (const id of daysObj.appointments) {
-      //console.log(daysObj)
-      //console.log(daysObj.appointments)
       const appointment = appointments[id];
-      //console.log(appointment)
-      //if interview = null
       if (!appointment.interview) {
-        //count = count +1
         count++;
       }
     }
-    //console.log(count);
     return count;
-
   }
 
   const updateSpots = function (dayName, days, appointments) {
@@ -63,11 +53,8 @@ export default function useApplicationData() {
     return newArrayState;
   }
 
-
-
   //Book Appointment
   function bookInterview(id, interview) {
-    //console.log(id, interview);
 
     const appointment = {
       ...state.appointments[id],
@@ -126,13 +113,9 @@ export default function useApplicationData() {
 
       const [first, second, third] = all;
 
-      //console.log(first, second, third);
-      // set your states here with the correct values...
       setState(prev => ({ ...prev, days: first.data, appointments: second.data, interviewers: third.data }));
     })
   }, [])
-
-
 
   return { state, setDay, bookInterview, cancelInterview }
 }

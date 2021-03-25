@@ -14,16 +14,12 @@ export default function Application(props) {
 
   //Get apppointments and interviews per day
   const appointments = getAppointmentsForDay(state, state.day);
-  //console.log(appointments)
 
   const interviewers = getInterviewersForDay(state, state.day);
-  //console.log("interviewers", interviewers)
-
-
+ 
 
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-
 
 
     return (
@@ -38,9 +34,6 @@ export default function Application(props) {
       />
     );
   });
-
-
-
 
 
   return (

@@ -39,6 +39,7 @@ export default function Appointment(props) {
       .then(() => transition(SHOW))
       .catch(() => transition(ERROR_SAVE, true))
   }
+
   //Cancel/delete an appointment
   function cancel() {
     transition(DELETE, true)
@@ -56,8 +57,6 @@ export default function Appointment(props) {
   function edit() {
     transition(EDIT)
   }
-
-
 
 
   return (
