@@ -134,7 +134,7 @@ describe("Application", () => {
 
     // 6. We don't want the spots to change for "Monday", since this is an edit.
 
-  })
+  });
 
 
   it("shows the save error when failing to save an appointment", async () => {
@@ -211,4 +211,4 @@ describe("Application", () => {
 
   });
 
-})
+});

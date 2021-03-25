@@ -1,10 +1,7 @@
-import React, { Fragment } from 'react'
-
+import React, { Fragment } from 'react';
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-
 import "index.scss";
-
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
@@ -18,7 +15,6 @@ import Confirm from "components/Appointment/Confirm";
 import Status from "components/Appointment/Status";
 import Error from "components/Appointment/Error";
 import Form from "components/Appointment/Form";
-
 
 
 ///Button-----------
@@ -147,7 +143,7 @@ storiesOf("InterviewerList", module)
   ));
 
 //Appointment--------
-storiesOf("Appointment", module)
+storiesOf("Appointment", module);
 
 storiesOf("Appointment", module)
   .addParameters({
@@ -212,4 +208,4 @@ storiesOf("Appointment", module)
       />
       <Appointment id="last" time="1pm" />
     </Fragment>
-  ))
+  ));

@@ -1,19 +1,16 @@
 import React from "react";
-
 import "components/DayListItem.scss";
-
-
 import classNames from 'classnames';
 
 export default function DayListItem(props) {
 
   const formatSpots = (number) => {
     if (number === 0) {
-      return "no spots remaining"
+      return "no spots remaining";
     } else if (number === 1) {
-      return "1 spot remaining"
+      return "1 spot remaining";
     } else {
-      return number + " spots remaining"
+      return number + " spots remaining";
     }
   }
 

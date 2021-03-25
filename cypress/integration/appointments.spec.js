@@ -4,13 +4,13 @@ describe("Appointments", () => {
   // "should book an interview"
   it("should book an interview", () => {
 
-    cy.request("GET", "/api/debug/reset")
+    cy.request("GET", "/api/debug/reset");
 
     // Visits the root of our web server, confirm that the DOM contains the text "Monday".
     cy.visit("/");
     cy.contains("Monday");
     // Clicks on the "Add" button in the second appointment
-    cy.get("[alt=Add]")
+    cy.get("[alt=Add]");
       .first()
       .click();
     // Enters their name
@@ -60,24 +60,6 @@ describe("Appointments", () => {
     cy.contains("Deleting").should("not.exist");
     //confirm the absence of the "Archie Cohen" appointment
     cy.contains(".appointment__card--show", "Archie Cohen")
-    .should("not.exist");
+      .should("not.exist");
   });
-
-
 });
-
-
-
-
-
-
-  // "should edit an interview"
-
-
-
-  // "should cancel an interview"
-
-  //  Visits the root of our web server
-  // Clicks the delete button for the existing appointment
-  // Clicks the confirm button
-  // Sees that the appointment slot is empty

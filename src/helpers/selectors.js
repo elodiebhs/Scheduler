@@ -2,22 +2,22 @@
 
 export const getAppointmentsForDay = (state, day) => {
 
-  const appointmentDay = state.days.find(currentDay => { return currentDay.name === day })
+  const appointmentDay = state.days.find(currentDay => { return currentDay.name === day });
   
   if (!appointmentDay) {
-    return []
+    return [];
   }
-  const ids = appointmentDay.appointments
+  const ids = appointmentDay.appointments;
 
-  return ids.map(id => state.appointments[id])
-}
+  return ids.map(id => state.appointments[id]);
+};
 
 // The function should return a new object containing the interview data when we pass it an object that contains the interviewer. Otherwise, the function should return null.
 export const getInterview = (state, interview) => {
-  let newObj = {}
+  let newObj = {};
 
   if (!interview) {
-    return null
+    return null;
   } else {
     for (let element in state.interviewers) {
       if (state.interviewers[element].id === interview.interviewer) {
@@ -27,19 +27,19 @@ export const getInterview = (state, interview) => {
           interviewer: {
             ...state.interviewers[element]
           }
-        }
+        };
       }
     }
   }
-  return newObj
-}
+  return newObj;
+};
 
 export const getInterviewersForDay = (state, day) => {
 
-  const appointmentDay = state.days.find(currentDay => { return currentDay.name === day })
+  const appointmentDay = state.days.find(currentDay => { return currentDay.name === day });
   
   if (!appointmentDay) {
-    return []
+    return [];
   }
-  return appointmentDay.interviewers.map(appointmentID => state.interviewers[appointmentID])
-}
+  return appointmentDay.interviewers.map(appointmentID => state.interviewers[appointmentID]);
+};

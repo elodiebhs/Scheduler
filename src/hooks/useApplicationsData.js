@@ -1,5 +1,4 @@
 // Our useApplicationData Hook will return an object with four keys.
-
 // The state object will maintain the same structure.
 // The setDay action can be used to set the current day.
 // The bookInterview action makes an HTTP request and updates the local state.
@@ -32,26 +31,26 @@ export default function useApplicationData() {
       }
     }
     return count;
-  }
+  };
 
   const updateSpots = function (dayName, days, appointments) {
     // we loop arounds days, .find returns the value of the first element in the provided array, where element.name==dayName
     //if true day will be the first element in the array
     const day = days.find(element => element.name === dayName);
     //unbooked give us an number of spots not books
-    const unbooked = spotsLeft(day, appointments)
+    const unbooked = spotsLeft(day, appointments);
     //console.log (unbooked)
 
     const newArrayState = days.map(element => {
       if (element.name === dayName) {
-        console.log(element.name)
-        return { ...element, spots: unbooked }
+        console.log(element.name);
+        return { ...element, spots: unbooked };
       }
       return element;
-    })
-    console.log(newArrayState)
+    });
+    console.log(newArrayState);
     return newArrayState;
-  }
+  };
 
   //Book Appointment
   function bookInterview(id, interview) {
@@ -67,7 +66,7 @@ export default function useApplicationData() {
     };
 
     const spots = updateSpots(state.day, state.days, appointments);
-    console.log(spots)
+    console.log(spots);
 
     return axios.put(`/api/appointments/${id}`, appointment)
       .then(() => {
@@ -76,7 +75,7 @@ export default function useApplicationData() {
           appointments,
           days: spots
         });
-      })
+      });
   }
 
   //Delete the appointment
@@ -97,7 +96,7 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
         setState({ ...state, appointments, days: spots });
-      })
+      });
   }
 
 
@@ -114,8 +113,8 @@ export default function useApplicationData() {
       const [first, second, third] = all;
 
       setState(prev => ({ ...prev, days: first.data, appointments: second.data, interviewers: third.data }));
-    })
-  }, [])
+    });
+  }, []);
 
-  return { state, setDay, bookInterview, cancelInterview }
+  return { state, setDay, bookInterview, cancelInterview };
 }

@@ -11,12 +11,12 @@ export default function Form(props) {
   const reset = () => {
     setName("");
     setInterviewer(null);
-  }
+  };
 
   const cancel = () => {
     reset();
     props.onCancel();
-  }
+  };
 
   function validate() {
     if (name === "") {
@@ -54,5 +54,5 @@ export default function Form(props) {
         </section>
       </section>
     </main>
-  )
+  );
 }
