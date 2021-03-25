@@ -9,8 +9,8 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 export default function useApplicationData() {
-   //Export applications
-   const [state, setState] = useState({
+  //Export applications
+  const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
@@ -25,43 +25,43 @@ export default function useApplicationData() {
   //WHEN : change when we create or delete an appointment
   //HOW TO CALCULATE : 5 spots per days - what is booked
 
-const spotsLeft = function(daysObj, appointments) {
-  let count = 0 ;
-  
-  for (const id of daysObj.appointments) {
-    //console.log(daysObj)
-    //console.log(daysObj.appointments)
-    const appointment = appointments[id];
-    //console.log(appointment)
-    //if interview = null
-    if(!appointment.interview){
-      //count = count +1
-      count ++;
-    }
-  }
-  //console.log(count);
-  return count;
-  
-}
+  const spotsLeft = function (daysObj, appointments) {
+    let count = 0;
 
-const updateSpots = function (dayName, days, appointments) {
- // we loop arounds days, .find returns the value of the first element in the provided array, where element.name==dayName
- //if true day will be the first element in the array
-  const day = days.find (element => element.name === dayName);
-  //unbooked give us an number of spots not books
-  const unbooked = spotsLeft(day,appointments)
-  //console.log (unbooked)
-  
-  const newArrayState = days.map(element => {
-    if (element.name === dayName){
-      console.log(element.name)
-      return {...element, spots : unbooked}
+    for (const id of daysObj.appointments) {
+      //console.log(daysObj)
+      //console.log(daysObj.appointments)
+      const appointment = appointments[id];
+      //console.log(appointment)
+      //if interview = null
+      if (!appointment.interview) {
+        //count = count +1
+        count++;
+      }
     }
-    return element;
-  })
-  console.log(newArrayState)
-  return newArrayState;
-}
+    //console.log(count);
+    return count;
+
+  }
+
+  const updateSpots = function (dayName, days, appointments) {
+    // we loop arounds days, .find returns the value of the first element in the provided array, where element.name==dayName
+    //if true day will be the first element in the array
+    const day = days.find(element => element.name === dayName);
+    //unbooked give us an number of spots not books
+    const unbooked = spotsLeft(day, appointments)
+    //console.log (unbooked)
+
+    const newArrayState = days.map(element => {
+      if (element.name === dayName) {
+        console.log(element.name)
+        return { ...element, spots: unbooked }
+      }
+      return element;
+    })
+    console.log(newArrayState)
+    return newArrayState;
+  }
 
 
 
@@ -104,7 +104,7 @@ const updateSpots = function (dayName, days, appointments) {
       ...state.appointments,
       [id]: appointment
     };
-  
+
     const spots = updateSpots(state.day, state.days, appointments);
 
     return axios.delete(`/api/appointments/${id}`)
@@ -113,7 +113,7 @@ const updateSpots = function (dayName, days, appointments) {
       })
   }
 
-  
+
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
@@ -134,5 +134,5 @@ const updateSpots = function (dayName, days, appointments) {
 
 
 
-  return {state, setDay, bookInterview, cancelInterview}
+  return { state, setDay, bookInterview, cancelInterview }
 }

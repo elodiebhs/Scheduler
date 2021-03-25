@@ -2,16 +2,16 @@
 
 export const getAppointmentsForDay = (state, day) => {
 
-  const appointmentDay = state.days.find(currentDay => { return currentDay.name === day} )
+  const appointmentDay = state.days.find(currentDay => { return currentDay.name === day })
   //console.log(appointmentDay)
   // console.log(appointmentDay.appointments)
   // console.log(state.appointments)
 
-  if (!appointmentDay){
-  return []
+  if (!appointmentDay) {
+    return []
   }
   const ids = appointmentDay.appointments
-  
+
   return ids.map(id => state.appointments[id])
 }
 
@@ -20,33 +20,33 @@ export const getInterview = (state, interview) => {
   let newObj = {}
 
   if (!interview) {
-      return null
+    return null
   } else {
-    for(let element in state.interviewers) {
-        if(state.interviewers[element].id === interview.interviewer) {
-          const student = interview.student
-          newObj = {
-            student,
-            interviewer: {
-              ...state.interviewers[element]
-            }
+    for (let element in state.interviewers) {
+      if (state.interviewers[element].id === interview.interviewer) {
+        const student = interview.student
+        newObj = {
+          student,
+          interviewer: {
+            ...state.interviewers[element]
           }
         }
       }
     }
-    return newObj
   }
+  return newObj
+}
 
-  export const getInterviewersForDay = (state, day) => {
+export const getInterviewersForDay = (state, day) => {
 
-    const appointmentDay = state.days.find(currentDay => { return currentDay.name === day} )
-    //console.log(appointmentDay)
-    // console.log(appointmentDay.appointments)
-    // console.log(state.appointments)
-  
-    if (!appointmentDay){
+  const appointmentDay = state.days.find(currentDay => { return currentDay.name === day })
+  //console.log(appointmentDay)
+  // console.log(appointmentDay.appointments)
+  // console.log(state.appointments)
+
+  if (!appointmentDay) {
     return []
-    }
-    
-    return appointmentDay.interviewers.map(appointmentID => state.interviewers[appointmentID])
   }
+
+  return appointmentDay.interviewers.map(appointmentID => state.interviewers[appointmentID])
+}

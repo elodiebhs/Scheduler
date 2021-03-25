@@ -13,13 +13,13 @@ import Error from "components/Appointment/Error";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
-const CREATE ="CREATE";
-const SAVING ="SAVING";
-const DELETE ="DELETE";
-const CONFIRM="CONFIRM"
-const EDIT="EDIT";
-const ERROR_SAVE="ERROR_SAVE";
-const ERROR_DELETE="ERROR_DELETE"
+const CREATE = "CREATE";
+const SAVING = "SAVING";
+const DELETE = "DELETE";
+const CONFIRM = "CONFIRM"
+const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE"
 
 export default function Appointment(props) {
 
@@ -32,7 +32,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition (SAVING);
+    transition(SAVING);
 
     props
       .bookInterview(props.id, interview)
@@ -40,63 +40,63 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR_SAVE, true))
   }
   //Cancel/delete an appointment
-  function cancel(){
+  function cancel() {
     transition(DELETE, true)
     props
-    .cancelInterview(props.id)
-    .then(() => transition(EMPTY))
-    .catch(() => transition(ERROR_DELETE, true))
+      .cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true))
   }
 
-  function confirm(){
-    transition (CONFIRM)
+  function confirm() {
+    transition(CONFIRM)
   }
 
   //Edit appointment
-  function edit(){
+  function edit() {
     transition(EDIT)
   }
 
 
- 
+
 
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {/* If we start in the EMPTY mode and call transition(CREATE) then the mode will be changed, and React will render the component. */}
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE) } />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={confirm}
           onEdit={edit}
-          
+
         />
       )}
-      
+
       {/* When the mode === CREATE we want to show the Form component. */}
-      {mode === CREATE && 
-      (<Form
-       interviewers={props.interviewers}
-       onCancel ={back}
-       onSave={save}
-      />
-      )}
-      {mode === SAVING && <Status message={'Saving'} /> }
-      {mode === DELETE && <Status message={'Deleting'} /> }
-      {mode === CONFIRM && <Confirm onCancel={back} onConfirm={cancel} message={'Confirming you want to delete'} /> }
-      {mode === EDIT && 
-      (<Form
-       name={props.interview.student}
-       interviewer={props.interview.interviewer.id}
-       interviewers={props.interviewers}
-       onCancel ={back}
-       onSave={save}
-      />
-      )}
-      {mode === ERROR_SAVE && <Error message={'Cound not save appointment'} onClose={back}/>}
-      {mode === ERROR_DELETE && <Error message={'Could not cancel appointment'} onClose={back}/>}
+      {mode === CREATE &&
+        (<Form
+          interviewers={props.interviewers}
+          onCancel={back}
+          onSave={save}
+        />
+        )}
+      {mode === SAVING && <Status message={'Saving'} />}
+      {mode === DELETE && <Status message={'Deleting'} />}
+      {mode === CONFIRM && <Confirm onCancel={back} onConfirm={cancel} message={'Confirming you want to delete'} />}
+      {mode === EDIT &&
+        (<Form
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          interviewers={props.interviewers}
+          onCancel={back}
+          onSave={save}
+        />
+        )}
+      {mode === ERROR_SAVE && <Error message={'Cound not save appointment'} onClose={back} />}
+      {mode === ERROR_DELETE && <Error message={'Could not cancel appointment'} onClose={back} />}
     </article>
   );
 }
