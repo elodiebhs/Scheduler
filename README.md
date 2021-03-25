@@ -1,4 +1,4 @@
-Scheduler is a React application that allows users to book and cancel interviews.
+Scheduler is a React application that allows users to book and cancel interviews witn an interviewer. 
 
 # Getting started 
 
@@ -6,7 +6,7 @@ Scheduler is a React application that allows users to book and cancel interviews
 2 .Install dependencies using the npm install command.
 3 .Start the web server using the npm run start. The app will be served at http://localhost:8000/.
 4 .Go to http://localhost:8000/ in your browser.
-5. Data is stored in a PostgreSQL database that can be found here : _____. To setup the api server, follow the instruction in the repository. 
+5. Data is stored in a PostgreSQL database that can be found here : https://github.com/elodiebhs/scheduler-api.git. To setup the api server, follow the instruction in the repository. Scheduler-Api is running on http://localhost:8001/days
 6. Running Jest Test Framework : npm test
 7. Running Storybook Visual Testbed: npm run storybook
 
