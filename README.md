@@ -37,4 +37,4 @@ Both servers run concurrently; requests are proxied from the Webpack development
 
 #### Final Project
 
-!["Screenshot of Main Page"](https://raw.githubusercontent.com/elodiebhs/Scheduler/master/Images/Main_page.png)
+!["Screenshot of Main Page"] (https://raw.githubusercontent.com/elodiebhs/Scheduler/master/Images/Main_page.png)
