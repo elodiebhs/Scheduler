@@ -1,4 +1,4 @@
-Scheduler is a React application that allows users to book and cancel interviews.
+Scheduler is a React application that allows users to book and cancel interviews witn an interviewer. 
 
 # Getting started 
 
